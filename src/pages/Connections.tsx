@@ -4,11 +4,7 @@ import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
-  IconBriefcase,
-  IconBulb,
-  IconMessage,
   IconPlus,
-  IconStar,
   IconUserCircle,
   IconWorld,
 } from "@tabler/icons-react";
@@ -34,39 +30,27 @@ import {
 import { GrGroup } from "react-icons/gr";
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { cn } from "@/lib/utils";
-import { Cover } from "@/components/ui/cover";
-import { BellRing, MessageSquare } from "lucide-react";
-import { FloatingDock } from "@/components/ui/floating-dock";
-import GooeyNav from "@/components/react-bits/GooeyNav";
-import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
-import { Card } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Ideas } from "@/components/homeComponents/Ideas";
-import { Thoughts } from "@/components/homeComponents/Thoughts";
-import Opportunitiy from "@/components/homeComponents/Opportunity";
-import { MyProjects } from "@/components/homeComponents/MyProjects";
+import { BellRing, Check, MessageSquare, X } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Project } from "@/components/homeComponents/Project";
 
-type Components =
-  | "projects"
-  | "ideas"
-  | "thoughts"
-  | "opportunity"
-  | "myprojects";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Logo, LogoIcon, NotisCard } from "./Home";
 
 export default function Home() {
   const links = [
     {
       label: "Dashboard",
-      href: "#",
+      href: "/home",
       icon: (
         <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
       label: "Connections",
-      href: "/connections",
+      href: "#",
       icon: (
         <IconWorld className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
@@ -181,6 +165,7 @@ export default function Home() {
                 </div>
               </SheetContent>
             </Sheet>
+
             <SidebarLink
               link={{
                 label: "Dipesh Mishra",
@@ -204,50 +189,80 @@ export default function Home() {
   );
 }
 
-export const Logo = () => {
-  return (
-    <Cover className="">
-      <a
-        href="#"
-        className="relative  z-20 flex items-center space-x-2 py-1  font-bold text-2xl whitespace-pre text-blue-800 dark:text-white"
-      >
-        {/* <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" /> */}
-        Inovact
-      </a>
-    </Cover>
-  );
-};
-
-export const LogoIcon = () => {
-  return (
-    <a
-      href="#"
-      className="relative z-20 flex items-center space-x-2 py-1 mt-2 text-sm font-normal text-black"
-    >
-      {/* <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" /> */}
-      <div className="font-bold text-base text-blue-800 sm:text-3xl">In</div>
-    </a>
-  );
-};
-
-export const NotisCard = () => {
+const ConnCard = () => {
   return (
     <Card className="min-w-full mx-auto p-2 sm:p-4 border-0 border-b border-gray-200 rounded-none bg-white shadow-none">
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center space-x-3 flex-1">
           <Avatar className="h-12 w-12">
             <AvatarImage
-              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
-              alt="Adah Aggarwal"
+              src="https://images.unsplash.com/photo-1494790108755-2616b2e7cc9a?w=150&h=150&fit=crop&crop=face"
+              alt="Dhanashri Bhavsar"
             />
             <AvatarFallback className="bg-gray-200 text-gray-600">
-              AA
+              DB
             </AvatarFallback>
           </Avatar>
 
-          <div className="flex-1 min-w-0 ">
-            <p className="text-sm text-gray-500 truncate text-wrap ">Student</p>
+          <div className="flex-1 min-w-0">
+            <h3 className="font-medium text-gray-900 truncate text-base">
+              Dhanashri Bhavsar
+            </h3>
+            <p className="text-sm text-gray-500 truncate">Student</p>
           </div>
+        </div>
+
+        <div className="flex items-center space-x-2 ml-4">
+          <Button
+            onClick={() => console.log(`Message Dhanashri Bhavsar`)}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium"
+          >
+            Message
+          </Button>
+        </div>
+      </div>
+    </Card>
+  );
+};
+
+const HisCard = () => {
+  return (
+    <Card className="min-w-full mx-auto p-2 sm:p-4 border-0 border-b border-gray-200 rounded-none bg-white shadow-none">
+      <div className="flex items-center justify-between w-full">
+        <div className="flex items-center space-x-3 flex-1 relative">
+          <div className="bg-red-600 size-2 rounded-4xl  absolute z-10 top-0" />
+          <Avatar className="h-12 w-12">
+            <AvatarImage
+              src="https://images.unsplash.com/photo-1494790108755-2616b2e7cc9a?w=150&h=150&fit=crop&crop=face"
+              alt="Dhanashri Bhavsar"
+            />
+            <AvatarFallback className="bg-gray-200 text-gray-600">
+              DB
+            </AvatarFallback>
+          </Avatar>
+
+          <div className="flex-1 min-w-0">
+            <h3 className="font-medium text-gray-900 truncate text-base">
+              Dhanashri Bhavsar
+            </h3>
+            <p className="text-sm text-gray-500 truncate">Student</p>
+          </div>
+        </div>
+
+        <div className="flex items-center space-x-2 ml-4">
+          <Button
+            onClick={() => console.log(`Accept Dhanashri Bhavsar`)}
+            className="bg-gray-200 hover:bg-gray-300 text-green-600 px-4 py-2 rounded-md font-medium"
+          >
+            <Check className="h-5 w-5" />
+          </Button>
+
+          <Button
+            onClick={() => console.log(`Decline Dhanashri Bhavsar`)}
+            className="bg-gray-200 hover:bg-gray-300 text-red-600 px-4 py-2 rounded-md font-medium"
+          >
+            <X className="h-5 w-5" />
+          </Button>
         </div>
       </div>
     </Card>
@@ -256,96 +271,10 @@ export const NotisCard = () => {
 
 // Dummy dashboard component with content
 const Dashboard = () => {
-  const links = [
-    {
-      title: "Projects",
-      icon: (
-        <IconBriefcase className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-      onClick: () => setComponent("projects"),
-    },
-    {
-      title: "Ideas",
-      icon: (
-        <IconBulb className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-      onClick: () => setComponent("ideas"),
-    },
-    {
-      title: "Thoughts",
-      icon: (
-        <IconMessage className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-      onClick: () => setComponent("thoughts"),
-    },
-    {
-      title: "Opportunity",
-      icon: (
-        <IconStar className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-      onClick: () => setComponent("opportunity"),
-    },
-    {
-      title: "My Projects",
-      icon: (
-        <IconBriefcase className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-      onClick: () => setComponent("myprojects"),
-    },
-  ];
-  const items = [
-    { label: "Projects", onClick: () => setComponent("projects") },
-    { label: "Ideas", onClick: () => setComponent("ideas") },
-    { label: "Thoughts", onClick: () => setComponent("thoughts") },
-    { label: "Opportunity", onClick: () => setComponent("opportunity") },
-    { label: "My Projects", onClick: () => setComponent("myprojects") },
-  ];
-  const placeholders = [
-    "Internships & Jobs",
-    "Who is Sarang Pani?",
-    "I am looking for collaboration",
-    "Need a team",
-    "How to create MCP server?",
-  ];
-
-  const [component, setComponent] = useState<Components>("projects");
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("submitted");
-  };
   return (
     <div className="flex flex-1">
-      <div className="h-screen   sm:h-full w-full  overflow-y-scroll gap-2 rounded-tl-2xl border border-neutral-200 bg-white p-2 pb-12 md:pb-8 md:p-4 dark:border-neutral-700 dark:bg-neutral-900">
-        <nav>
-          <div className="md:hidden absolute bottom-6 right-6 z-50">
-            <FloatingDock items={links} />
-          </div>
-          <div className="hidden md:flex justify-center  ">
-            <GooeyNav
-              items={items}
-              particleCount={40}
-              particleDistances={[90, 10]}
-              particleR={100}
-              initialActiveIndex={0}
-              animationTime={600}
-              timeVariance={300}
-              colors={[1, 2, 3, 1, 2, 3, 1, 4]}
-            />
-          </div>
-        </nav>
-        {/* Search */}
-        <div className="my-4 flex justify-center items-center gap-2">
-          <PlaceholdersAndVanishInput
-            placeholders={placeholders}
-            onChange={(e) => console.log(e.target.value)}
-            onSubmit={onSubmit}
-          />
+      <div className=" h-full w-full flex  overflow-y-scroll gap-2 rounded-tl-2xl border border-neutral-200 bg-white p-2 md:p-4 dark:border-neutral-700 dark:bg-neutral-900">
+        <div className=" flex-1/2 sm:p-3 ">
           <Sheet>
             <SheetTrigger asChild>
               <div className="md:hidden justify-end flex relative">
@@ -360,23 +289,34 @@ const Dashboard = () => {
             </SheetTrigger>
             <SheetContent className="overflow-y-scroll z-[100] w-[100vw]">
               <SheetHeader>
-                <SheetTitle>Notifications</SheetTitle>
+                <SheetTitle>Requests</SheetTitle>
                 <SheetDescription>
                   You will see your updates here.
                 </SheetDescription>
               </SheetHeader>
               <div className="grid flex-1 auto-rows-min gap-6 px-4 ">
-                <NotisCard />
+                <HisCard />
               </div>
             </SheetContent>
           </Sheet>
+          <div className="flex w-full flex-wrap gap-2">
+            <Badge variant={"outline"}>45 Connections</Badge>
+            <Badge variant={"outline"}>Growth 40%</Badge>
+          </div>
+          <div className="flex flex-1 flex-col gap-4 items-center mt-8 ">
+            <ConnCard />
+            {/* <p className="text-center my-auto">Nothing here</p> */}
+          </div>
         </div>
-        {/* Card */}
-        {component == "projects" && <Project />}
-        {component == "ideas" && <Ideas />}
-        {component == "thoughts" && <Thoughts />}
-        {component == "opportunity" && <Opportunitiy />}
-        {component == "myprojects" && <MyProjects />}
+        <div className=" flex-col hidden md:flex">
+          <Separator orientation="vertical" />
+        </div>
+        <div className="hidden md:inline-block flex-1/2 p-3">
+          <div className="flex flex-1 flex-col gap-4 items-center mt-8 ">
+            <HisCard />
+            {/* <p className="text-center my-auto">Nothing here</p> */}
+          </div>
+        </div>
       </div>
     </div>
   );
