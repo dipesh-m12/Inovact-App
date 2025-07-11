@@ -1,7 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { useRef, useState } from "react";
+import type { ChangeEvent, DragEvent } from "react";
+
+interface UploadedFile {
+  id: number;
+  name: string;
+  size: number;
+  type: string;
+}
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import {
   IconArrowLeft,
@@ -414,17 +422,17 @@ const ConnCard = () => {
 
 const DocumentsComponent = () => {
   const [isDragging, setIsDragging] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  const fileInputRef = useRef(null);
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileUpload = (event) => {
+  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
       processFiles(files);
     }
   };
 
-  const processFiles = (files) => {
+  const processFiles = (files: FileList) => {
     const fileArray = Array.from(files);
     console.log("Files selected:", fileArray);
 
@@ -439,19 +447,19 @@ const DocumentsComponent = () => {
     setUploadedFiles((prev) => [...prev, ...newFiles]);
   };
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(true);
   };
 
-  const handleDragLeave = (e) => {
+  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
   };
 
-  const handleDrop = (e) => {
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
@@ -466,7 +474,7 @@ const DocumentsComponent = () => {
     fileInputRef.current?.click();
   };
 
-  const formatFileSize = (bytes) => {
+  const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
     const sizes = ["Bytes", "KB", "MB", "GB"];
@@ -474,7 +482,7 @@ const DocumentsComponent = () => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
-  const removeFile = (fileId) => {
+  const removeFile = (fileId: number) => {
     setUploadedFiles((prev) => prev.filter((file) => file.id !== fileId));
   };
 

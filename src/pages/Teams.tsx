@@ -42,7 +42,7 @@ import {
   Rocket,
   Target,
 } from "lucide-react";
-import { Logo, LogoIcon, NotisCard } from "./Home";
+import { Logo, LogoIcon, NotisCard } from "@/components";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {

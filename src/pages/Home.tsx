@@ -107,99 +107,104 @@ export default function Home() {
       ),
     },
   ];
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
-    <div
-      className={cn(
-        "mx-auto flex w-full  flex-1 flex-col overflow-hidden rounded-md border border-neutral-200 bg-gray-100 md:flex-row dark:border-neutral-700 dark:bg-neutral-800",
-        "h-screen" // for your use case, use `h-screen` instead of `h-[60vh]`
-      )}
-    >
-      <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-1  flex-col overflow-x-hidden overflow-y-auto">
-            {open ? <Logo /> : <LogoIcon />}
-            <div className="mt-8 flex flex-col gap-2">
-              {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
-              ))}
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <SidebarLink
-                    key="Logout"
-                    link={{
-                      label: "Logout",
-                      href: "#",
-                      icon: (
-                        <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-                      ),
-                    }}
-                  />
-                </AlertDialogTrigger>
-                <AlertDialogContent className="z-[100]">
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Are you sure you want to logout?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      You will be signed out of your account and redirected to
-                      the login page.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction className="bg-red-600 hover:bg-red-700 text-white">
-                      Logout
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
-          </div>
-          <div>
-            <Sheet>
-              <SheetTrigger asChild>
+    <div className="flex h-screen w-full overflow-hidden">
+      {/* Fixed Sidebar */}
+      <div className="fixed left-0 top-0 z-10 h-screen w-20 md:w-64">
+        <div className={cn(
+          "h-full border-r border-neutral-200 bg-gray-100 dark:border-neutral-700 dark:bg-neutral-800"
+        )}>
+          <Sidebar open={open} setOpen={setOpen}>
+            <SidebarBody className="flex flex-col justify-between gap-10 h-full">
+              <div className="flex flex-col">
+                {open ? <Logo /> : <LogoIcon />}
+                <div className="mt-8 flex flex-col gap-2">
+                  {links.map((link, idx) => (
+                    <SidebarLink key={idx} link={link} />
+                  ))}
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <SidebarLink
+                        key="Logout"
+                        link={{
+                          label: "Logout",
+                          href: "#",
+                          icon: (
+                            <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                          ),
+                        }}
+                      />
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="z-[100]">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          Are you sure you want to logout?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          You will be signed out of your account and redirected to
+                          the login page.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction className="bg-red-600 hover:bg-red-700 text-white">
+                          Logout
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
+              </div>
+              <div className="mb-4">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <SidebarLink
+                      link={{
+                        label: "Notifications",
+                        href: "#",
+                        icon: (
+                          <BellRing className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                        ),
+                      }}
+                    />
+                  </SheetTrigger>
+                  <SheetContent className="overflow-y-scroll z-[100] w-[100vw]">
+                    <SheetHeader>
+                      <SheetTitle>Notifications</SheetTitle>
+                      <SheetDescription>
+                        You will see your updates here.
+                      </SheetDescription>
+                    </SheetHeader>
+                    <div className="grid flex-1 auto-rows-min gap-6 px-4">
+                      <NotisCard />
+                    </div>
+                  </SheetContent>
+                </Sheet>
                 <SidebarLink
                   link={{
-                    label: "Notifications",
+                    label: "Dipesh Mishra",
                     href: "#",
                     icon: (
-                      <BellRing className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                      <img
+                        src="https://assets.aceternity.com/manu.png"
+                        className="h-7 w-7 shrink-0 rounded-full"
+                        width={50}
+                        height={50}
+                        alt="Avatar"
+                      />
                     ),
                   }}
                 />
-              </SheetTrigger>
-              <SheetContent className="overflow-y-scroll z-[100] w-[100vw]">
-                <SheetHeader>
-                  <SheetTitle>Notifications</SheetTitle>
-                  <SheetDescription>
-                    You will see your updates here.
-                  </SheetDescription>
-                </SheetHeader>
-                <div className="grid flex-1 auto-rows-min gap-6 px-4 ">
-                  <NotisCard />
-                </div>
-              </SheetContent>
-            </Sheet>
-            <SidebarLink
-              link={{
-                label: "Dipesh Mishra",
-                href: "#",
-                icon: (
-                  <img
-                    src="https://assets.aceternity.com/manu.png"
-                    className="h-7 w-7 shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
-              }}
-            />
-          </div>
-        </SidebarBody>
-      </Sidebar>
-      <Dashboard />
+              </div>
+            </SidebarBody>
+          </Sidebar>
+        </div>
+      </div>
+      {/* Main Content */}
+      <div className="flex-1 overflow-y-auto pl-20 md:pl-64">
+        <Dashboard />
+      </div>
     </div>
   );
 }

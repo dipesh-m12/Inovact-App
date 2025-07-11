@@ -69,7 +69,7 @@ import {
   SettingsIcon as IconSettings,
   Check,
 } from "lucide-react";
-import { Logo, LogoIcon, NotisCard } from "./Home";
+import { Logo, LogoIcon, NotisCard } from "@/components";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ProfileProjects } from "@/components/profileComponents/Projects";
 import { ProjectIdeas } from "@/components/profileComponents/Ideas";

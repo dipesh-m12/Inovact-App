@@ -31,7 +31,7 @@ import { GrGroup } from "react-icons/gr";
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { cn } from "@/lib/utils";
 import { BellRing, MessageSquare } from "lucide-react";
-import { Logo, LogoIcon, NotisCard } from "./Home";
+import { Logo, LogoIcon, NotisCard } from "@/components";
 import PostCreator from "@/components/AddCompo";
 
 export default function Add() {

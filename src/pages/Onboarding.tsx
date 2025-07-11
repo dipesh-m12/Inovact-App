@@ -332,7 +332,7 @@ export default function OnboardPage() {
             value={formData.firstName}
             onChange={handleInputChange}
             placeholder="Enter your first name"
-            className="h-11 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            className="h-11 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:ring-offset-1"
           />
         </div>
         <div className="space-y-1.5">
@@ -345,7 +345,7 @@ export default function OnboardPage() {
             value={formData.lastName}
             onChange={handleInputChange}
             placeholder="Enter your last name"
-            className="h-11 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            className="h-11 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:ring-offset-1"
           />
         </div>
       </div>
@@ -466,12 +466,16 @@ export default function OnboardPage() {
             value={formData.degree}
             onValueChange={(value) => handleSelectChange('degree', value)}
           >
-            <SelectTrigger className="h-11 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <SelectTrigger className="h-11 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:ring-offset-1">
               <SelectValue placeholder="Select your degree" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               {degrees.map((degree) => (
-                <SelectItem key={degree} value={degree}>
+                <SelectItem 
+                  key={degree} 
+                  value={degree}
+                  className="hover:bg-blue-50 transition-colors duration-200 cursor-pointer"
+                >
                   {degree}
                 </SelectItem>
               ))}
@@ -499,12 +503,16 @@ export default function OnboardPage() {
               }
             }}
           >
-            <SelectTrigger className="h-11 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <SelectTrigger className="h-11 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:ring-offset-1">
               <SelectValue placeholder={`Select your ${profileType === 'entrepreneur' ? 'role' : 'position'}`} />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               {(profileType === 'entrepreneur' ? entrepreneurPositions : mentorPositions).map((pos) => (
-                <SelectItem key={pos} value={pos}>
+                <SelectItem 
+                  key={pos} 
+                  value={pos}
+                  className="hover:bg-blue-50 transition-colors duration-200 cursor-pointer"
+                >
                   {pos}
                 </SelectItem>
               ))}
@@ -518,7 +526,7 @@ export default function OnboardPage() {
                 value={formData.customPosition}
                 onChange={handleInputChange}
                 placeholder="Please specify your position"
-                className="h-11 mt-1 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                className="h-11 mt-1 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:ring-offset-1"
               />
             </div>
           )}
@@ -788,7 +796,7 @@ export default function OnboardPage() {
               <Button
                 type="button"
                 onClick={handleNext}
-                className="px-6 bg-blue-600 hover:bg-blue-700"
+                className="px-6 bg-blue-600 hover:bg-blue-700 text-white"
               >
                 {step === 4 ? "Review and Submit" : step === 5 ? "Submit" : "Next"}
               </Button>
