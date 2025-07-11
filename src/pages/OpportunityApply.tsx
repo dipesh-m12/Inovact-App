@@ -12,6 +12,14 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { EligibilityAlert } from "@/components/homeComponents/Opportunity";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 function OpportunityApply() {
   const jobDescription = `
@@ -191,9 +199,73 @@ function OpportunityApply() {
             <AlertCircle className="w-5 h-5" />
             <span className="text-sm font-medium">Deadline passed</span>
           </div>
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full">
-            Apply Now
-          </Button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full">
+                Apply Now
+              </Button>
+            </SheetTrigger>
+            <SheetContent className="overflow-y-scroll z-[100] w-[100vw]">
+              <SheetHeader>
+                <SheetTitle>Submit Your Project</SheetTitle>
+                <SheetDescription>
+                  Please provide the URLs for your project submission.
+                </SheetDescription>
+              </SheetHeader>
+              <div className="grid flex-1 auto-rows-min gap-6 px-4 py-6">
+                <div className="space-y-4">
+                  <div>
+                    <label
+                      htmlFor="github-url"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      GitHub Live URL
+                    </label>
+                    <input
+                      id="github-url"
+                      type="url"
+                      placeholder="https://github.com/username/repository"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="hosted-url"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Hosted Site URL
+                    </label>
+                    <input
+                      id="hosted-url"
+                      type="url"
+                      placeholder="https://yoursite.com"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="docs-url"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Documentation URL
+                    </label>
+                    <input
+                      id="docs-url"
+                      type="url"
+                      placeholder="https://docs.yoursite.com"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md mt-6">
+                    Submit Project
+                  </Button>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </div>
