@@ -54,9 +54,9 @@ export const SidebarProvider = ({
 
 export const Sidebar = ({
   children,
-  open,
+  open = true,
   setOpen,
-  animate,
+  animate = true,
 }: {
   children: React.ReactNode;
   open?: boolean;
@@ -161,27 +161,35 @@ export const SidebarLink = ({
   className?: string;
 }) => {
   const navigate = useNavigate();
-  const { open, animate } = useSidebar();
+  const { open } = useSidebar();
+
+  // Check if the link is active based on both pathname and hash
+  const isActive = link.href.includes('#')
+    ? window.location.hash === link.href
+    : window.location.pathname === link.href;
+
   return (
     <a
       onClick={() => navigate(link.href)}
       className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2",
+        "flex items-center justify-start gap-2  group/sidebar py-2 transition-all duration-200",
+        isActive
+          ? "bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
+          : "text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800",
         className
       )}
       {...props}
     >
       {link.icon}
 
-      <motion.span
-        animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+      <span
+        className={cn(
+          "text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0",
+          isActive ? "font-medium" : "font-normal"
+        )}
       >
         {link.label}
-      </motion.span>
+      </span>
     </a>
   );
 };
