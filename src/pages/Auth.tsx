@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,35 +21,6 @@ export default function AuthPage() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const tabIndicatorRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const updateIndicator = () => {
-      if (tabIndicatorRef.current) {
-        const activeTabElement = document.querySelector(
-          '[data-state="active"]'
-        ) as HTMLElement;
-        if (activeTabElement) {
-          const tabRect = activeTabElement.getBoundingClientRect();
-          const containerRect =
-            tabIndicatorRef.current.parentElement?.getBoundingClientRect();
-
-          if (containerRect) {
-            const leftOffset = tabRect.left - containerRect.left;
-            tabIndicatorRef.current.style.transform = `translateX(${leftOffset}px)`;
-            tabIndicatorRef.current.style.width = `${tabRect.width}px`;
-          }
-        }
-      }
-    };
-
-    // Initial update
-    updateIndicator();
-
-    // Update on resize
-    window.addEventListener("resize", updateIndicator);
-    return () => window.removeEventListener("resize", updateIndicator);
-  }, [activeTab]);
 
   const handleGoogleAuth = () => {
     setIsLoading(true);
@@ -67,9 +38,9 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center p-4">
       <div className="w-full max-w-md transform transition-all duration-300 hover:scale-[1.01]">
-        <Card className="border border-blue-100 shadow-xl overflow-hidden relative">
+        <Card className="border border-blue-100 shadow-2xl overflow-hidden relative bg-white">
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-indigo-500"></div>
           <CardHeader className="text-center p-6 pb-4">
             <div className="mx-auto flex items-center justify-center mb-4">
@@ -100,21 +71,22 @@ export default function AuthPage() {
               className="w-full"
               onValueChange={(value) => setActiveTab(value)}
             >
-              <TabsList className="grid w-full grid-cols-2 mb-8 relative bg-gray-50 p-1 rounded-lg border border-gray-200 h-12">
-                <div
-                  ref={tabIndicatorRef}
-                  className="absolute top-1 left-1 h-[calc(100%-8px)] bg-white shadow-sm rounded-md transition-all duration-300 ease-out border border-gray-200"
-                  style={{ width: "calc(50% - 4px)" }}
-                />
+              <TabsList className="flex w-full mb-8 bg-gray-100 p-1 rounded-xl h-11">
                 <TabsTrigger
                   value="login"
-                  className="relative z-10 data-[state=active]:bg-transparent data-[state=active]:text-blue-600 data-[state=active]:shadow-none text-gray-500 font-medium transition-colors duration-200"
+                  className="flex-1 h-full flex items-center justify-center text-sm uppercase tracking-wide font-medium 
+                    rounded-lg transition-colors duration-200
+                    data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm
+                    data-[state=inactive]:text-gray-500 hover:text-gray-600"
                 >
                   Sign In
                 </TabsTrigger>
                 <TabsTrigger
                   value="register"
-                  className="relative z-10 data-[state=active]:bg-transparent data-[state=active]:text-blue-600 data-[state=active]:shadow-none text-gray-500 font-medium transition-colors duration-200"
+                  className="flex-1 h-full flex items-center justify-center text-sm uppercase tracking-wide font-medium 
+                    rounded-lg transition-colors duration-200
+                    data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm
+                    data-[state=inactive]:text-gray-500 hover:text-gray-600"
                 >
                   Sign Up
                 </TabsTrigger>
