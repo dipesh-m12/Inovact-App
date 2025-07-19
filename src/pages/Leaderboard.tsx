@@ -32,7 +32,7 @@ import { GrGroup } from "react-icons/gr";
 import { MdOutlineLeaderboard } from "react-icons/md";
 import { cn } from "@/lib/utils";
 import { BellRing, MessageSquare } from "lucide-react";
-import { Logo, LogoIcon, NotisCard } from "./Home";
+import { Logo, LogoIcon, NotisCard } from "@/components";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 

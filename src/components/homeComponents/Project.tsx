@@ -401,9 +401,9 @@ export function Project() {
             </Badge>
           </div>
 
-          {/* Action Buttons - Column Layout */}
-          <div className="space-y-4">
-            {/* Share Icons Row */}
+          {/* Action Buttons - Row Layout */}
+          <div className="flex items-center justify-between">
+            {/* Left side - Action Icons */}
             <div className="flex items-center gap-6">
               <button
                 className={`flex items-center gap-2 transition-colors ${
@@ -444,16 +444,14 @@ export function Project() {
               </button>
             </div>
 
-            {/* Join Team Button Row */}
-            <div className="flex justify-end">
-              <Button
-                onClick={() => setJoinTeamModalOpen(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full"
-              >
-                <Play className="w-4 h-4 mr-2" />
-                Join Team
-              </Button>
-            </div>
+            {/* Right side - Join Team Button */}
+            <Button
+              onClick={() => setJoinTeamModalOpen(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full flex items-center gap-2"
+            >
+              <Users className="w-4 h-4" />
+              <span>Join Team</span>
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -521,7 +519,7 @@ export function Project() {
 
       {/* Join Team Modal */}
       <Dialog open={joinTeamModalOpen} onOpenChange={setJoinTeamModalOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-white">
           <DialogHeader>
             <DialogTitle className="text-lg font-semibold">
               Join team as a...

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,35 +21,6 @@ export default function AuthPage() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const tabIndicatorRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const updateIndicator = () => {
-      if (tabIndicatorRef.current) {
-        const activeTabElement = document.querySelector(
-          `[data-state="active"]`
-        ) as HTMLElement;
-        if (activeTabElement) {
-          const tabRect = activeTabElement.getBoundingClientRect();
-          const containerRect =
-            tabIndicatorRef.current.parentElement?.getBoundingClientRect();
-
-          if (containerRect) {
-            const leftOffset = tabRect.left - containerRect.left;
-            tabIndicatorRef.current.style.transform = `translateX(${leftOffset}px)`;
-            tabIndicatorRef.current.style.width = `${tabRect.width}px`;
-          }
-        }
-      }
-    };
-
-    // Initial update
-    updateIndicator();
-
-    // Update on resize
-    window.addEventListener("resize", updateIndicator);
-    return () => window.removeEventListener("resize", updateIndicator);
-  }, [activeTab]);
 
   const handleGoogleAuth = () => {
     setIsLoading(true);
@@ -67,38 +38,55 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted flex items-start justify-center p-4 pt-10 md:pt-16 ">
-      <div className="w-full  max-w-md">
-        <Card className="border-blue-200 shadow-lg ">
-          <CardHeader className="text-center p-0">
-            <CardTitle className="text-xl sm:text-2xl font-bold text-gray-900">
-              {activeTab === "login" ? "Sign In" : "Create Account"}
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center p-4">
+      <div className="w-full max-w-md transform transition-all duration-300 hover:scale-[1.01]">
+        <Card className="border border-blue-100 shadow-2xl overflow-hidden relative bg-white">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-indigo-500"></div>
+          <CardHeader className="text-center p-6 pb-4">
+            <div className="mx-auto flex items-center justify-center mb-4">
+              <img 
+                src="/images/inovact_dp.png" 
+                alt="Inovact Logo" 
+                className="h-16 w-auto" 
+                onError={(e) => {
+                  // Fallback in case the image fails to load
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null;
+                  target.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzI1NjNjYSI+PHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptLTEgMTVoMnYyaC0ydi0yem0wLTEzaDJ2MTBoLTJWNnoiLz48L3N2Zz4=';
+                }}
+              />
+            </div>
+            <CardTitle className="text-2xl font-bold text-gray-800">
+              {activeTab === "login" ? "Look who’s back" : "Start Your Proof Era"}
             </CardTitle>
-            <CardDescription className="text-gray-600">
-              Choose your preferred method to continue
+            <CardDescription className="text-gray-500 mt-1">
+              {activeTab === "login" 
+                ? "Sign in and get back to the grind (the fun kind)" 
+                : "The future is collaborative. Join in now!"}
             </CardDescription>
           </CardHeader>
-          <CardContent className="px-4 sm:px-6">
+          <CardContent className="px-6 sm:px-8 pb-8">
             <Tabs
               defaultValue="login"
               className="w-full"
               onValueChange={(value) => setActiveTab(value)}
             >
-              <TabsList className="grid w-full grid-cols-2 mb-6 relative bg-gray-100 p-1">
-                <div
-                  ref={tabIndicatorRef}
-                  className="absolute top-1 left-1 h-[calc(100%-8px)] bg-blue-500 opacity-55 rounded-md transition-all duration-300 ease-out shadow-sm"
-                  style={{ width: "calc(50% - 4px)" }}
-                />
+              <TabsList className="flex w-full mb-8 bg-gray-100 p-1 rounded-xl h-11">
                 <TabsTrigger
                   value="login"
-                  className="relative z-10 data-[state=active]:bg-transparent data-[state=active]:text-white data-[state=active]:shadow-none text-gray-600 font-medium"
+                  className="flex-1 h-full flex items-center justify-center text-sm uppercase tracking-wide font-medium 
+                    rounded-lg transition-colors duration-200
+                    data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm
+                    data-[state=inactive]:text-gray-500 hover:text-gray-600"
                 >
                   Sign In
                 </TabsTrigger>
                 <TabsTrigger
                   value="register"
-                  className="relative z-10 data-[state=active]:bg-transparent data-[state=active]:text-white data-[state=active]:shadow-none text-gray-600 font-medium"
+                  className="flex-1 h-full flex items-center justify-center text-sm uppercase tracking-wide font-medium 
+                    rounded-lg transition-colors duration-200
+                    data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm
+                    data-[state=inactive]:text-gray-500 hover:text-gray-600"
                 >
                   Sign Up
                 </TabsTrigger>
@@ -109,13 +97,15 @@ export default function AuthPage() {
                   <Label htmlFor="email" className="text-gray-700">
                     Email
                   </Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Mail className="h-4 w-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+                    </div>
                     <Input
                       id="email"
                       type="email"
                       placeholder="Enter your email"
-                      className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 h-11 transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -123,17 +113,19 @@ export default function AuthPage() {
                   <Label htmlFor="password" className="text-gray-700">
                     Password
                   </Label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Lock className="h-4 w-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+                    </div>
                     <Input
                       id="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
-                      className="pl-10 pr-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      className="pl-10 pr-10 border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 h-11 transition-all duration-200"
                     />
                     <button
                       type="button"
-                      className="absolute right-3 top-3 h-4 w-4 text-gray-400 hover:text-gray-600"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 hover:text-blue-600 transition-colors flex items-center justify-center"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
@@ -150,7 +142,7 @@ export default function AuthPage() {
                   </button>
                 </div>
                 <Button
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 font-medium text-base shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5"
                   onClick={() => handleEmailAuth("login")}
                   disabled={isLoading}
                 >
@@ -162,7 +154,7 @@ export default function AuthPage() {
                     <div className="w-full border-t border-gray-300" />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-white px-4 text-sm text-gray-500">
+                    <span className="bg-white px-3 text-sm text-gray-400">
                       or
                     </span>
                   </div>
@@ -170,7 +162,7 @@ export default function AuthPage() {
 
                 <Button
                   variant="outline"
-                  className="w-full border-gray-300 hover:bg-gray-50"
+                  className="w-full border-gray-300 hover:bg-gray-50 h-11 font-medium text-gray-700 transition-all duration-200 hover:border-gray-400"
                   onClick={handleGoogleAuth}
                   disabled={isLoading}
                 >
@@ -197,101 +189,104 @@ export default function AuthPage() {
               </TabsContent>
 
               <TabsContent value="register" className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="reg-email" className="text-gray-700">
-                    Email
-                  </Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input
-                      id="reg-email"
-                      type="email"
-                      placeholder="Enter your email"
-                      className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                    />
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-gray-700">
+                      Email
+                    </Label>
+                    <div className="relative group">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="Enter your email"
+                        className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 h-11 transition-all duration-200"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="password" className="text-gray-700">
+                      Password
+                    </Label>
+                    <div className="relative group">
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+                      <Input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Create a password"
+                        className="pl-10 pr-10 border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 h-11 transition-all duration-200"
+                      />
+                      <button
+                        type="button"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 hover:text-blue-600 transition-colors flex items-center justify-center"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <Eye className="h-4 w-4" />
+                        ) : (
+                          <EyeOff className="h-4 w-4" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="confirm-password" className="text-gray-700">
+                      Confirm Password
+                    </Label>
+                    <div className="relative group">
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+                      <Input
+                        id="confirm-password"
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="Confirm your password"
+                        className="pl-10 pr-10 border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 h-11 transition-all duration-200"
+                      />
+                      <button
+                        type="button"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 hover:text-blue-600 transition-colors flex items-center justify-center"
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                      >
+                        {showConfirmPassword ? (
+                          <Eye className="h-4 w-4" />
+                        ) : (
+                          <EyeOff className="h-4 w-4" />
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="reg-password" className="text-gray-700">
-                    Password
-                  </Label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input
-                      id="reg-password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Create a password"
-                      className="pl-10 pr-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                
+                <div className="pt-2">
+                  <div className="flex items-center space-x-3">
+                    <Checkbox
+                      id="terms"
+                      checked={acceptTerms}
+                      onCheckedChange={handleCheckboxChange}
+                      className="h-4 w-4 rounded border-gray-300 text-white focus:ring-blue-500 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white"
                     />
-                    <button
-                      type="button"
-                      className="absolute right-3 top-3 h-4 w-4 text-gray-400 hover:text-gray-600"
-                      onClick={() => setShowPassword(!showPassword)}
+                    <label
+                      htmlFor="terms"
+                      className="text-sm text-gray-600 flex-1 leading-tight"
                     >
-                      {showPassword ? (
-                        <Eye className="h-4 w-4" />
-                      ) : (
-                        <EyeOff className="h-4 w-4" />
-                      )}
-                    </button>
+                      I agree to the <a href="https://www.inovact.in/terms-of-use" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 font-medium">Terms of Use</a> and{' '}
+                      <a href="https://www.inovact.in/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 font-medium">Privacy Policy</a>
+                    </label>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="confirm-password" className="text-gray-700">
-                    Confirm Password
-                  </Label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input
-                      id="confirm-password"
-                      type={showConfirmPassword ? "text" : "password"}
-                      placeholder="Confirm your password"
-                      className="pl-10 pr-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                    />
-                    <button
-                      type="button"
-                      className="absolute right-3 top-3 h-4 w-4 text-gray-400 hover:text-gray-600"
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
-                    >
-                      {showConfirmPassword ? (
-                        <Eye className="h-4 w-4" />
-                      ) : (
-                        <EyeOff className="h-4 w-4" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <Checkbox
-                    id="terms"
-                    checked={acceptTerms}
-                    onCheckedChange={handleCheckboxChange}
-                    className="mt-1 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
-                  />
-                  <Label
-                    htmlFor="terms"
-                    className="text-xs sm:text-sm text-gray-700 leading-relaxed flex flex-wrap gap-x-1 gap-y-0
-                    "
+                
+                <div className="pt-2">
+                  <Button
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 font-medium text-base shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5"
+                    onClick={() => handleEmailAuth("register")}
+                    disabled={isLoading || !acceptTerms}
                   >
-                    I agree to the{" "}
-                    <button className="text-blue-600 hover:text-blue-800 hover:underline">
-                      Terms of Service
-                    </button>{" "}
-                    and{" "}
-                    <button className="text-blue-600 hover:text-blue-800 hover:underline">
-                      Privacy Policy
-                    </button>
-                  </Label>
+                    {isLoading ? "Creating account..." : "Create Account"}
+                  </Button>
                 </div>
-                <Button
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={() => handleEmailAuth("register")}
-                  disabled={isLoading || !acceptTerms}
-                >
-                  {isLoading ? "Creating account..." : "Create Account"}
-                </Button>
               </TabsContent>
             </Tabs>
           </CardContent>

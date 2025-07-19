@@ -37,7 +37,7 @@ import { Separator } from "@/components/ui/separator";
 
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Logo, LogoIcon, NotisCard } from "./Home";
+import { Logo, LogoIcon, NotisCard } from "@/components";
 
 export default function Chats() {
   const links = [
