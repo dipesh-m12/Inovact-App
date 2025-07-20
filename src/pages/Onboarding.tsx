@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState } from "react";
@@ -89,7 +90,7 @@ const entrepreneurPositions = [
   "Director",
   "Sole Proprietor",
   "Partner",
-  "Other (Please specify)"
+  "Other (Please specify)",
 ];
 
 const mentorPositions = [
@@ -106,7 +107,7 @@ const mentorPositions = [
   "Professor",
   "Working Professional",
   "Investor",
-  "Other (Please specify)"
+  "Other (Please specify)",
 ];
 
 const skillLevels = ["Beginner", "Intermediate", "Expert"];
@@ -125,7 +126,7 @@ export default function OnboardPage() {
     customPosition: "",
     graduationYear: "",
   });
-  
+
   const currentYear = new Date().getFullYear();
   const maxGraduationYear = currentYear + 8;
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
@@ -139,12 +140,13 @@ export default function OnboardPage() {
   const addSkill = (skill: string, level: string) => {
     const trimmedSkill = skill.trim();
     if (!trimmedSkill) return;
-    
+
     // Check if skill already exists at this level
     const skillExists = skills.some(
-      (s) => s.name.toLowerCase() === trimmedSkill.toLowerCase() && s.level === level
+      (s) =>
+        s.name.toLowerCase() === trimmedSkill.toLowerCase() && s.level === level
     );
-    
+
     if (skillExists) {
       // Clear the input field if skill already exists
       if (level === "Beginner") setBeginnerSkill("");
@@ -152,23 +154,26 @@ export default function OnboardPage() {
       if (level === "Expert") setExpertSkill("");
       return;
     }
-    
+
     // Check if max skills (5) reached for this level
     const skillsAtLevel = skills.filter((s) => s.level === level).length;
     if (skillsAtLevel >= 5) {
       alert(`Maximum 5 skills allowed for ${level.toLowerCase()} level`);
       return;
     }
-    
+
     setSkills([...skills, { name: trimmedSkill, level }]);
-    
+
     // Clear the input field
     if (level === "Beginner") setBeginnerSkill("");
     if (level === "Intermediate") setIntermediateSkill("");
     if (level === "Expert") setExpertSkill("");
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>, level: string) => {
+  const handleKeyPress = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    level: string
+  ) => {
     if (e.key === "Enter") {
       e.preventDefault();
       if (level === "Beginner") addSkill(beginnerSkill, level);
@@ -183,7 +188,9 @@ export default function OnboardPage() {
 
   const toggleInterest = (interest: string) => {
     setSelectedInterests((prev) =>
-      prev.includes(interest) ? prev.filter((i) => i !== interest) : [...prev, interest]
+      prev.includes(interest)
+        ? prev.filter((i) => i !== interest)
+        : [...prev, interest]
     );
   };
 
@@ -226,7 +233,10 @@ export default function OnboardPage() {
         }
 
         // Check if "Other" was selected but no custom position provided
-        if (formData.position === "Other (Please specify)" && !formData.customPosition) {
+        if (
+          formData.position === "Other (Please specify)" &&
+          !formData.customPosition
+        ) {
           alert("Please specify your position");
           return;
         }
@@ -234,20 +244,26 @@ export default function OnboardPage() {
 
       // Validate graduation year format
       const graduationYear = parseInt(formData.graduationYear);
-      if (isNaN(graduationYear) || graduationYear < 1000 || graduationYear > 9999) {
-        alert('Please enter your year of graduation');
+      if (
+        isNaN(graduationYear) ||
+        graduationYear < 1000 ||
+        graduationYear > 9999
+      ) {
+        alert("Please enter your year of graduation");
         return;
       }
-      
+
       // Check if graduation year is too old
       if (graduationYear < 1925) {
-        alert('Are you 100 years old?');
+        alert("Are you 100 years old?");
         return;
       }
-      
+
       // Check if graduation year is in the future but not more than 8 years ahead
       if (graduationYear > maxGraduationYear) {
-        alert(`Please enter a valid year of graduation (up to ${maxGraduationYear})`);
+        alert(
+          `Please enter a valid year of graduation (up to ${maxGraduationYear})`
+        );
         return;
       }
     }
@@ -257,25 +273,34 @@ export default function OnboardPage() {
       setStep(step + 1);
     } else {
       // Form submission
-      console.log("Form submitted:", { ...formData, profileType, selectedInterests, skills });
+      console.log("Form submitted:", {
+        ...formData,
+        profileType,
+        selectedInterests,
+        skills,
+      });
       // router.push("/loading");
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
       // Clear custom position when position changes to non-other
-      ...(name === 'position' && value !== 'Other (Please specify)' ? { customPosition: '' } : {})
+      ...(name === "position" && value !== "Other (Please specify)"
+        ? { customPosition: "" }
+        : {}),
     }));
   };
 
@@ -323,7 +348,10 @@ export default function OnboardPage() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-1.5">
-          <Label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+          <Label
+            htmlFor="firstName"
+            className="block text-sm font-medium text-gray-700"
+          >
             First Name <span className="text-red-500">*</span>
           </Label>
           <Input
@@ -336,7 +364,10 @@ export default function OnboardPage() {
           />
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+          <Label
+            htmlFor="lastName"
+            className="block text-sm font-medium text-gray-700"
+          >
             Last Name <span className="text-red-500">*</span>
           </Label>
           <Input
@@ -352,10 +383,17 @@ export default function OnboardPage() {
 
       <div className="space-y-1.5">
         <div className="flex justify-between items-center">
-          <Label htmlFor="bio" className="block text-sm font-medium text-gray-700">
+          <Label
+            htmlFor="bio"
+            className="block text-sm font-medium text-gray-700"
+          >
             Bio <span className="text-red-500">*</span>
           </Label>
-          <span className={`text-xs ${formData.bio.length > 200 ? 'text-red-500' : 'text-gray-500'}`}>
+          <span
+            className={`text-xs ${
+              formData.bio.length > 200 ? "text-red-500" : "text-gray-500"
+            }`}
+          >
             {formData.bio.length}/200
           </span>
         </div>
@@ -374,11 +412,14 @@ export default function OnboardPage() {
       </div>
 
       {/* Organization field - shown for entrepreneur and mentor profiles */}
-      {profileType !== 'student' && (
+      {profileType !== "student" && (
         <div className="space-y-2">
-          <Label htmlFor="organization" className="block mb-1.5 text-sm font-medium text-gray-700">
-            {profileType === "entrepreneur" 
-              ? "Name of your startup/company" 
+          <Label
+            htmlFor="organization"
+            className="block mb-1.5 text-sm font-medium text-gray-700"
+          >
+            {profileType === "entrepreneur"
+              ? "Name of your startup/company"
               : "Current Organization"}
             <span className="text-red-500">*</span>
           </Label>
@@ -400,8 +441,13 @@ export default function OnboardPage() {
 
       {/* College/University for all profiles */}
       <div className="space-y-2">
-        <Label htmlFor="college" className="block mb-1.5 text-sm font-medium text-gray-700">
-          {profileType === 'student' ? 'College/University Name' : 'College/University Name'}
+        <Label
+          htmlFor="college"
+          className="block mb-1.5 text-sm font-medium text-gray-700"
+        >
+          {profileType === "student"
+            ? "College/University Name"
+            : "College/University Name"}
           <span className="text-red-500">*</span>
         </Label>
         <Input
@@ -417,9 +463,11 @@ export default function OnboardPage() {
 
       {/* Graduation Year */}
       <div className="grid grid-cols-1 gap-6">
-        
         <div className="space-y-1.5">
-          <Label htmlFor="graduationYear" className="block text-sm font-medium text-gray-700">
+          <Label
+            htmlFor="graduationYear"
+            className="block text-sm font-medium text-gray-700"
+          >
             Year of Graduation <span className="text-red-500">*</span>
           </Label>
           <input
@@ -431,7 +479,7 @@ export default function OnboardPage() {
             onChange={(e) => {
               const value = e.target.value;
               // Allow only numbers and empty string, limit to 4 digits
-              if (value === '' || (/^\d{1,4}$/.test(value))) {
+              if (value === "" || /^\d{1,4}$/.test(value)) {
                 handleInputChange(e);
               }
             }}
@@ -439,40 +487,44 @@ export default function OnboardPage() {
             className="h-11 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:outline-none transition"
             required
           />
-          {formData.graduationYear && 
+          {formData.graduationYear &&
             formData.graduationYear.length === 4 &&
-            (parseInt(formData.graduationYear) < 1925) && (
+            parseInt(formData.graduationYear) < 1925 && (
               <p className="mt-1 text-sm text-red-500">
                 Are you 100 years old?
               </p>
             )}
-          {formData.graduationYear && 
+          {formData.graduationYear &&
             formData.graduationYear.length === 4 &&
-            (parseInt(formData.graduationYear) > maxGraduationYear) && (
+            parseInt(formData.graduationYear) > maxGraduationYear && (
               <p className="mt-1 text-sm text-red-500">
-                Please enter a valid year of graduation (up to {maxGraduationYear})
+                Please enter a valid year of graduation (up to{" "}
+                {maxGraduationYear})
               </p>
             )}
         </div>
       </div>
 
       {/* Degree for students, Position for others */}
-      {profileType === 'student' ? (
+      {profileType === "student" ? (
         <div className="space-y-1.5">
-          <Label htmlFor="degree" className="block text-sm font-medium text-gray-700">
+          <Label
+            htmlFor="degree"
+            className="block text-sm font-medium text-gray-700"
+          >
             Degree <span className="text-red-500">*</span>
           </Label>
           <Select
             value={formData.degree}
-            onValueChange={(value) => handleSelectChange('degree', value)}
+            onValueChange={(value) => handleSelectChange("degree", value)}
           >
             <SelectTrigger className="h-11 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:ring-offset-1">
               <SelectValue placeholder="Select your degree" />
             </SelectTrigger>
             <SelectContent className="bg-white">
               {degrees.map((degree) => (
-                <SelectItem 
-                  key={degree} 
+                <SelectItem
+                  key={degree}
                   value={degree}
                   className="hover:bg-blue-50 transition-colors duration-200 cursor-pointer"
                 >
@@ -485,31 +537,42 @@ export default function OnboardPage() {
       ) : (
         <div className="space-y-1.5">
           <div className="flex flex-col space-y-1">
-            <Label htmlFor="position" className="block text-sm font-medium text-gray-700">
+            <Label
+              htmlFor="position"
+              className="block text-sm font-medium text-gray-700"
+            >
               Role <span className="text-red-500">*</span>
             </Label>
-            {profileType === 'mentor' && (
+            {profileType === "mentor" && (
               <p className="text-xs text-gray-500">
-                Select your current role to help others understand your expertise
+                Select your current role to help others understand your
+                expertise
               </p>
             )}
           </div>
           <Select
             value={formData.position}
             onValueChange={(value) => {
-              handleSelectChange('position', value);
-              if (value !== 'Other (Please specify)') {
-                setFormData(prev => ({ ...prev, customPosition: '' }));
+              handleSelectChange("position", value);
+              if (value !== "Other (Please specify)") {
+                setFormData((prev) => ({ ...prev, customPosition: "" }));
               }
             }}
           >
             <SelectTrigger className="h-11 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:ring-offset-1">
-              <SelectValue placeholder={`Select your ${profileType === 'entrepreneur' ? 'role' : 'position'}`} />
+              <SelectValue
+                placeholder={`Select your ${
+                  profileType === "entrepreneur" ? "role" : "position"
+                }`}
+              />
             </SelectTrigger>
             <SelectContent className="bg-white">
-              {(profileType === 'entrepreneur' ? entrepreneurPositions : mentorPositions).map((pos) => (
-                <SelectItem 
-                  key={pos} 
+              {(profileType === "entrepreneur"
+                ? entrepreneurPositions
+                : mentorPositions
+              ).map((pos) => (
+                <SelectItem
+                  key={pos}
                   value={pos}
                   className="hover:bg-blue-50 transition-colors duration-200 cursor-pointer"
                 >
@@ -518,7 +581,7 @@ export default function OnboardPage() {
               ))}
             </SelectContent>
           </Select>
-          {formData.position === 'Other (Please specify)' && (
+          {formData.position === "Other (Please specify)" && (
             <div className="mt-2">
               <Input
                 id="customPosition"
@@ -539,11 +602,13 @@ export default function OnboardPage() {
   const renderInterestsStep = () => {
     const minInterests = 3;
     const hasMinInterests = selectedInterests.length >= minInterests;
-    
+
     return (
       <div className="space-y-4">
         <div>
-          <p className="text-sm text-gray-600 mb-1">Tell us what excites you!</p>
+          <p className="text-sm text-gray-600 mb-1">
+            Tell us what excites you!
+          </p>
           <p className="text-xs text-gray-500">
             Select at least {minInterests} interests
             {!hasMinInterests && selectedInterests.length > 0 && (
@@ -561,8 +626,8 @@ export default function OnboardPage() {
                 onClick={() => toggleInterest(interest)}
                 className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 border ${
                   selectedInterests.includes(interest)
-                    ? 'text-blue-700 border-blue-200 bg-blue-50 hover:bg-blue-100 shadow-sm'
-                    : 'text-gray-700 border-gray-300 bg-white hover:bg-gray-50'
+                    ? "text-blue-700 border-blue-200 bg-blue-50 hover:bg-blue-100 shadow-sm"
+                    : "text-gray-700 border-gray-300 bg-white hover:bg-gray-50"
                 }`}
               >
                 {interest}
@@ -580,24 +645,31 @@ export default function OnboardPage() {
   // Render step 4: Skills
   const renderSkillsStep = () => {
     const getSkillsCount = (level: string) => {
-      return skills.filter(skill => skill.level === level).length;
+      return skills.filter((skill) => skill.level === level).length;
     };
 
     return (
       <div className="space-y-6">
         <div>
-          <p className="text-sm text-gray-600">Show what you're good at and how good you are!</p>
+          <p className="text-sm text-gray-600">
+            Show what you're good at and how good you are!
+          </p>
           {step === 4 && skills.length === 0 && (
-            <p className="text-sm text-red-500 mt-1">Please add at least one skill to continue</p>
+            <p className="text-sm text-red-500 mt-1">
+              Please add at least one skill to continue
+            </p>
           )}
         </div>
-        
+
         {skillLevels.map((level) => {
-          const skillsAtLevel = skills.filter(skill => skill.level === level);
+          const skillsAtLevel = skills.filter((skill) => skill.level === level);
           const maxSkillsReached = skillsAtLevel.length >= 5;
-          
+
           return (
-            <div key={level} className="space-y-2 bg-white p-4 rounded-lg border border-gray-200">
+            <div
+              key={level}
+              className="space-y-2 bg-white p-4 rounded-lg border border-gray-200"
+            >
               <div className="flex justify-between items-center">
                 <h4 className="text-sm font-medium text-gray-700">
                   {level} Skills
@@ -606,7 +678,7 @@ export default function OnboardPage() {
                   {skillsAtLevel.length}/5 skills
                 </span>
               </div>
-              
+
               <div className="mt-1">
                 <Input
                   type="text"
@@ -624,16 +696,18 @@ export default function OnboardPage() {
                     if (level === "Expert") setExpertSkill(value);
                   }}
                   onKeyDown={(e) => handleKeyPress(e, level)}
-                  placeholder={maxSkillsReached ? 
-                    `Maximum 5 skills reached for ${level.toLowerCase()} level` : 
-                    `Type a skill and press Enter`}
+                  placeholder={
+                    maxSkillsReached
+                      ? `Maximum 5 skills reached for ${level.toLowerCase()} level`
+                      : `Type a skill and press Enter`
+                  }
                   disabled={maxSkillsReached}
                   className={`h-9 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
-                    maxSkillsReached ? 'bg-gray-50 cursor-not-allowed' : ''
+                    maxSkillsReached ? "bg-gray-50 cursor-not-allowed" : ""
                   }`}
                 />
               </div>
-              
+
               <div className="flex flex-wrap gap-2 pt-2">
                 {skillsAtLevel.map((skill, index) => (
                   <div key={`${level}-${index}`} className="relative group">
@@ -681,22 +755,26 @@ export default function OnboardPage() {
             </div>
             <div>
               <p className="text-sm text-gray-500">
-                {profileType === 'student' ? 'College/University' : 'Organization'}
+                {profileType === "student"
+                  ? "College/University"
+                  : "Organization"}
               </p>
               <p className="font-medium">
-                {profileType === 'student' ? formData.college : formData.organization}
+                {profileType === "student"
+                  ? formData.college
+                  : formData.organization}
               </p>
             </div>
             <div>
               <p className="text-sm text-gray-500">
-                {profileType === 'student' ? 'Degree' : 'Position'}
+                {profileType === "student" ? "Degree" : "Position"}
               </p>
               <p className="font-medium">
-                {profileType === 'student' 
-                  ? formData.degree 
-                  : formData.position === 'Other (Please specify)' 
-                    ? formData.customPosition 
-                    : formData.position}
+                {profileType === "student"
+                  ? formData.degree
+                  : formData.position === "Other (Please specify)"
+                  ? formData.customPosition
+                  : formData.position}
               </p>
             </div>
             <div>
@@ -704,7 +782,7 @@ export default function OnboardPage() {
               <p className="font-medium">{formData.graduationYear}</p>
             </div>
           </div>
-          
+
           <div className="mt-4">
             <p className="text-sm text-gray-500">Bio</p>
             <p className="mt-1 text-gray-900">{formData.bio}</p>
@@ -730,13 +808,21 @@ export default function OnboardPage() {
           <h3 className="font-medium text-gray-900">Skills</h3>
           <div className="space-y-4">
             {skillLevels.map((level) => {
-              const levelSkills = skills.filter(skill => skill.level === level);
+              const levelSkills = skills.filter(
+                (skill) => skill.level === level
+              );
               return levelSkills.length > 0 ? (
                 <div key={level}>
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">{level}</h4>
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">
+                    {level}
+                  </h4>
                   <div className="flex flex-wrap gap-2">
                     {levelSkills.map((skill, index) => (
-                      <Badge key={`${level}-${index}`} variant="secondary" className="px-2.5 py-0.5">
+                      <Badge
+                        key={`${level}-${index}`}
+                        variant="secondary"
+                        className="px-2.5 py-0.5"
+                      >
                         {skill.name}
                       </Badge>
                     ))}
@@ -798,7 +884,11 @@ export default function OnboardPage() {
                 onClick={handleNext}
                 className="px-6 bg-blue-600 hover:bg-blue-700 text-white"
               >
-                {step === 4 ? "Review and Submit" : step === 5 ? "Submit" : "Next"}
+                {step === 4
+                  ? "Review and Submit"
+                  : step === 5
+                  ? "Submit"
+                  : "Next"}
               </Button>
             </div>
           </CardContent>
