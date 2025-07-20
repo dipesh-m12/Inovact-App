@@ -38,34 +38,38 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center p-4">
+    // <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-muted flex items-center justify-center p-4">
       <div className="w-full max-w-md transform transition-all duration-300 hover:scale-[1.01]">
-        <Card className="border border-blue-100 shadow-2xl overflow-hidden relative bg-white">
+        <Card className="border border-blue-100 shadow-2xl overflow-hidden relative bg-white py-0">
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-indigo-500"></div>
-          <CardHeader className="text-center p-6 pb-4">
+          <CardHeader className="text-center p-3 sm:p-6 pb-4">
             <div className="mx-auto flex items-center justify-center mb-4">
-              <img 
-                src="/images/inovact_dp.png" 
-                alt="Inovact Logo" 
-                className="h-16 w-auto" 
+              <img
+                src="/images/inovact_dp.png"
+                alt="Inovact Logo"
+                className="h-16 w-auto"
                 onError={(e) => {
                   // Fallback in case the image fails to load
                   const target = e.target as HTMLImageElement;
                   target.onerror = null;
-                  target.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzI1NjNjYSI+PHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptLTEgMTVoMnYyaC0ydi0yem0wLTEzaDJ2MTBoLTJWNnoiLz48L3N2Zz4=';
+                  target.src =
+                    "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzI1NjNjYSI+PHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptLTEgMTVoMnYyaC0ydi0yem0wLTEzaDJ2MTBoLTJWNnoiLz48L3N2Zz4=";
                 }}
               />
             </div>
             <CardTitle className="text-2xl font-bold text-gray-800">
-              {activeTab === "login" ? "Look who’s back" : "Start Your Proof Era"}
+              {activeTab === "login"
+                ? "Look who’s back"
+                : "Start Your Proof Era"}
             </CardTitle>
             <CardDescription className="text-gray-500 mt-1">
-              {activeTab === "login" 
-                ? "Sign in and get back to the grind (the fun kind)" 
+              {activeTab === "login"
+                ? "Sign in and get back to the grind (the fun kind)"
                 : "The future is collaborative. Join in now!"}
             </CardDescription>
           </CardHeader>
-          <CardContent className="px-6 sm:px-8 pb-8">
+          <CardContent className="px-4 sm:px-8 pb-8">
             <Tabs
               defaultValue="login"
               className="w-full"
@@ -149,7 +153,7 @@ export default function AuthPage() {
                   {isLoading ? "Signing in..." : "Sign In"}
                 </Button>
 
-                <div className="relative my-6">
+                <div className="relative my-2">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-gray-300" />
                   </div>
@@ -204,7 +208,7 @@ export default function AuthPage() {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="password" className="text-gray-700">
                       Password
@@ -230,7 +234,7 @@ export default function AuthPage() {
                       </button>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="confirm-password" className="text-gray-700">
                       Confirm Password
@@ -259,7 +263,7 @@ export default function AuthPage() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="pt-2">
                   <div className="flex items-center space-x-3">
                     <Checkbox
@@ -272,12 +276,28 @@ export default function AuthPage() {
                       htmlFor="terms"
                       className="text-sm text-gray-600 flex-1 leading-tight"
                     >
-                      I agree to the <a href="https://www.inovact.in/terms-of-use" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 font-medium">Terms of Use</a> and{' '}
-                      <a href="https://www.inovact.in/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 font-medium">Privacy Policy</a>
+                      I agree to the{" "}
+                      <a
+                        href="https://www.inovact.in/terms-of-use"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 font-medium"
+                      >
+                        Terms of Use
+                      </a>{" "}
+                      and{" "}
+                      <a
+                        href="https://www.inovact.in/privacy-policy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 font-medium"
+                      >
+                        Privacy Policy
+                      </a>
                     </label>
                   </div>
                 </div>
-                
+
                 <div className="pt-2">
                   <Button
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 font-medium text-base shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5"

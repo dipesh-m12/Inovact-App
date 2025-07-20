@@ -11,6 +11,7 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ["representative-nasty-edges-amp.trycloudflare.com"],
+    allowedHosts: [""],
   },
+  // optimizeDeps: { exclude: ["node_modules/.cache"] },
 });

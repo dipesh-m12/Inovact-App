@@ -74,7 +74,7 @@ export default function ForgotPasswordPage() {
         </div>
 
         <Card className="border-blue-200">
-          <CardHeader className="pb-4">
+          <CardHeader className="">
             <div className="flex items-center justify-center mb-4">
               {step === "email" && (
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
@@ -118,7 +118,7 @@ export default function ForgotPasswordPage() {
                 <Button
                   onClick={handleSendReset}
                   disabled={isLoading || !email}
-                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-gray-200"
                 >
                   {isLoading ? (
                     <>
@@ -135,7 +135,7 @@ export default function ForgotPasswordPage() {
                     Remember your password?{" "}
                     <Link
                       to="/auth"
-                      className="text-blue-600 hover:underline font-medium"
+                      className="text-blue-600 hover:underline font-medium "
                     >
                       Sign in instead
                     </Link>
@@ -164,7 +164,7 @@ export default function ForgotPasswordPage() {
                       <div className="space-y-2">
                         <Progress
                           value={((30 - countdown) / 30) * 100}
-                          className="h-2"
+                          className="h-2 bg-blue-100 rounded-full [&>div]:bg-blue-600 transition-colors duration-500"
                         />
                         <p className="text-sm text-gray-500">
                           Resend available in {formatTime(countdown)}
@@ -226,7 +226,7 @@ export default function ForgotPasswordPage() {
 
                 <Button
                   onClick={() => {}}
-                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-gray-200"
                 >
                   Continue to Sign In
                 </Button>
